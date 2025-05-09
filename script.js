@@ -1,68 +1,31 @@
-$(document).ready(function() {
-    loadTasks();
+$(document).ready(function () {
+  $('#addBtn').click(function () {
+    const taskText = $('#taskInput').val().trim();
+    if (taskText === '') return;
 
-    $('#task-form').on('submit', function(e) {
-        e.preventDefault();
-        const taskInput = $('#task-input').val();
-        if (taskInput) {
-            addTask(taskInput);
-            $('#task-input').val('');
-        }
+    const $li = $('<li></li>');
+    const $span = $('<span></span>').text(taskText);
+    const $actions = $('<div class="actions"></div>');
+
+    const $doneBtn = $('<button class="complete-btn">Done</button>').click(function () {
+      $li.toggleClass('completed');
     });
 
-    $(document).on('click', '.edit-task', function() {
-        const taskId = $(this).data('id');
-        const taskText = $(this).siblings('.task-text').text();
-        $('#task-input').val(taskText);
-        deleteTask(taskId);
+    const $editBtn = $('<button class="edit-btn">Edit</button>').click(function () {
+      const newText = prompt('Edit your task:', $span.text());
+      if (newText !== null && newText.trim() !== '') {
+        $span.text(newText.trim());
+      }
     });
 
-    $(document).on('click', '.delete-task', function() {
-        const taskId = $(this).data('id');
-        deleteTask(taskId);
+    const $deleteBtn = $('<button>Delete</button>').click(function () {
+      $li.remove();
     });
 
-    function addTask(task) {
-        const tasks = getTasks();
-        const taskId = Date.now();
-        tasks.push({ id: taskId, text: task });
-        saveTasks(tasks);
-        renderTasks(tasks);
-    }
+    $actions.append($doneBtn, $editBtn, $deleteBtn);
+    $li.append($span, $actions);
+    $('#taskList').append($li);
 
-    function deleteTask(taskId) {
-        let tasks = getTasks();
-        tasks = tasks.filter(task => task.id !== taskId);
-        saveTasks(tasks);
-        renderTasks(tasks);
-    }
-
-    function loadTasks() {
-        const tasks = getTasks();
-        renderTasks(tasks);
-    }
-
-    function renderTasks(tasks) {
-        $('#task-list').empty();
-        tasks.forEach(task => {
-            $('#task-list').append(`
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span class="task-text">${task.text}</span>
-                    <div>
-                        <button class="btn btn-warning btn-sm edit-task" data-id="${task.id}">Edit</button>
-                        <button class="btn btn-danger btn-sm delete-task" data-id="${task.id}">Delete</button>
-                    </div>
-                </li>
-            `);
-        });
-    }
-
-    function getTasks() {
-        const tasks = localStorage.getItem('tasks');
-        return tasks ? JSON.parse(tasks) : [];
-    }
-
-    function saveTasks(tasks) {
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-    }
+    $('#taskInput').val('');
+  });
 });
