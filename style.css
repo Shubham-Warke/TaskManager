@@ -1,47 +1,71 @@
-
 body {
-    background-color: #f8f9fa; 
-    font-family: Arial, sans-serif; 
+  font-family: 'Segoe UI', sans-serif;
+  background: #f5f7fa;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
 }
 
-
-h1 {
-    color: #343a40; 
-    margin-bottom: 30px; 
+.container {
+  margin-top: 50px;
+  background: white;
+  padding: 30px;
+  width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.form-group {
-    margin-bottom: 15px; 
+h2 {
+  text-align: center;
+  color: #2c3e50;
 }
 
-.list-group-item {
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    padding: 10px 15px; 
-    border: 1px solid #dee2e6; 
-    border-radius: 5px; 
-    margin-bottom: 10px; 
+input[type="text"] {
+  width: 80%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-.btn {
-    margin-left: 10px; 
+button {
+  padding: 8px 12px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-left: 5px;
+  cursor: pointer;
 }
 
-
-.btn-warning {
-    background-color: #ffc107; 
-    border-color: #ffc107; 
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
 }
 
-
-.btn-danger {
-    background-color: #dc3545; 
-    border-color: #dc3545; 
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
 }
 
-@media (max-width: 576px) {
-    .container {
-        padding: 0 15px; 
-    }
+li.completed span {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.actions button {
+  margin-left: 5px;
+  background-color: #e74c3c;
+}
+
+.complete-btn {
+  background-color: #2ecc71;
+}
+
+.edit-btn {
+  background-color: #f39c12;
 }
